@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="time.nest.mapper.work.WorkMapper">
+  <resultMap id="BaseResultMap" type="time.nest.model.work.WorkModel">
+    <id column="work_id" jdbcType="INTEGER" property="workId" />
+    <result column="work_name" jdbcType="VARCHAR" property="workName" />
+  </resultMap>
+  <select id="getWorkList" resultMap="BaseResultMap">
+    SELECT
+      work_id,
+      work_name
+    FROM
+      works
+    WHERE
+      delete_flag = 0
+  </select>
+  <insert id="createWork">
+    INSERT INTO
+      works (
+        work_name,
+        created_at,
+        created_by,
+        updated_at,
+        updated_by
+      ) VALUES (
+      #{request.workName,jdbcType=VARCHAR},
+      CURRENT_TIMESTAMP,
+      1,
+      CURRENT_TIMESTAMP,
+      1
+      )
+  </insert>
+  <update id="updateWork">
+    UPDATE works
+    SET
+      work_name = #{request.workName,jdbcType=VARCHAR},
+      updated_at = CURRENT_TIMESTAMP
+    WHERE
+      work_id = #{request.workId,jdbcType=INTEGER}
+      AND delete_flag = 0
+  </update>
+
+  <delete id="deleteWork">
+    DELETE FROM
+      works
+    WHERE
+      work_id = #{id,jdbcType=INTEGER}
+  </delete>
+</mapper>
