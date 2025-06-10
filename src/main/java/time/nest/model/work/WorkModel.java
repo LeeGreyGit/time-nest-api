@@ -8,4 +8,6 @@ public class WorkModel {
   private Integer workId;
 
   private String workName;
+
+  private String workNote;
 }

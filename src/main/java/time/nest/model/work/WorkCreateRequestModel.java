@@ -10,4 +10,6 @@ public class WorkCreateRequestModel {
 
   private String workName;
 
+  private String workNote;
+
 }

@@ -63,7 +63,7 @@ public class WorkController {
    * @return
    */
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-  public ResponseEntity<?> delete(@PathVariable Integer id) {
-    return workService.delete(id);
+  public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+      return workService.delete(id);
   }
 }
