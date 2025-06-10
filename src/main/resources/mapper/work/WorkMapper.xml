@@ -5,11 +5,13 @@
   <resultMap id="BaseResultMap" type="time.nest.model.work.WorkModel">
     <id column="work_id" jdbcType="INTEGER" property="workId" />
     <result column="work_name" jdbcType="VARCHAR" property="workName" />
+    <result column="work_note" jdbcType="VARCHAR" property="workNote" />
   </resultMap>
   <select id="getWorkList" resultMap="BaseResultMap">
     SELECT
       work_id,
-      work_name
+      work_name,
+      work_note
     FROM
       works
     WHERE
@@ -19,12 +21,14 @@
     INSERT INTO
       works (
         work_name,
+        work_note,
         created_at,
         created_by,
         updated_at,
         updated_by
       ) VALUES (
       #{request.workName,jdbcType=VARCHAR},
+      #{request.workNote,jdbcType=VARCHAR},
       CURRENT_TIMESTAMP,
       1,
       CURRENT_TIMESTAMP,
@@ -35,6 +39,7 @@
     UPDATE works
     SET
       work_name = #{request.workName,jdbcType=VARCHAR},
+      work_note = #{request.workNote,jdbcType=VARCHAR},
       updated_at = CURRENT_TIMESTAMP
     WHERE
       work_id = #{request.workId,jdbcType=INTEGER}
